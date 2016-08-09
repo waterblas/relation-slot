@@ -46,7 +46,7 @@ def main(train_path,val_path,save_path,wordvec=None,num_epochs=NUM_EPOCHS):
     global T1
 
     # save settings
-    shutil.copyfile('settings_word.py','%s/settings_word.txt'%save_path)
+    shutil.copyfile('src/settings_word.py','%s/settings_word.txt'%save_path)
 
     print("Preparing Data...")
     # Training data
@@ -146,10 +146,10 @@ def main(train_path,val_path,save_path,wordvec=None,num_epochs=NUM_EPOCHS):
     start = time.time()
     valcosts = []
     try:
-	for epoch in range(num_epochs):
-	    n_samples = 0
+        for epoch in range(num_epochs):
+            n_samples = 0
             train_cost = 0.
-	    print("Epoch {}".format(epoch))
+            print("Epoch {}".format(epoch))
 
             # learning schedule
             if len(valcosts) > 1 and SCHEDULE:
@@ -169,42 +169,42 @@ def main(train_path,val_path,save_path,wordvec=None,num_epochs=NUM_EPOCHS):
                     break
 
             ud_start = time.time()
-	    for xr,y in train_iter:
-		n_samples +=len(xr)
-		uidx += 1
-		x, x_m = batch.prepare_data(xr, tokendict, n_tokens=n_token)
-		if x is None:
-		    print("Minibatch with zero samples under maxlength.")
-		    uidx -= 1
-		    continue
+            for xr,y in train_iter:
+                n_samples +=len(xr)
+                uidx += 1
+                x, x_m = batch.prepare_data(xr, tokendict, n_tokens=n_token)
+                if x is None:
+                    print("Minibatch with zero samples under maxlength.")
+                    uidx -= 1
+                    continue
 
-		curr_cost = train(x,x_m,y)
+                curr_cost = train(x,x_m,y)
                 train_cost += curr_cost*len(xr)
-		ud = time.time() - ud_start
+                ud = time.time() - ud_start
 
-		if np.isnan(curr_cost) or np.isinf(curr_cost):
-		    print("Nan detected.")
-		    return
+                if np.isnan(curr_cost) or np.isinf(curr_cost):
+                    print("Nan detected.")
+                    return
 
-		if np.mod(uidx, DISPF) == 0:
-		    print("Epoch {} Update {} Cost {} Time {}".format(epoch,uidx,curr_cost,ud))
+                if np.mod(uidx, DISPF) == 0:
+                    print("Epoch {} Update {} Cost {} Time {}".format(epoch,uidx,curr_cost,ud))
 
-		if np.mod(uidx,SAVEF) == 0:
-		    print("Saving...")
-		    saveparams = OrderedDict()
-		    for kk,vv in params.iteritems():
-			saveparams[kk] = vv.get_value()
-		    np.savez('%s/model.npz' % save_path,**saveparams)
-		    print("Done.")
+                if np.mod(uidx,SAVEF) == 0:
+                    print("Saving...")
+                    saveparams = OrderedDict()
+                    for kk,vv in params.iteritems():
+                        saveparams[kk] = vv.get_value()
+                    np.savez('%s/model.npz' % save_path,**saveparams)
+                    print("Done.")
 
             print("Testing on Validation set...")
             preds = []
             targs = []
-	    for xr,y in val_iter:
-		x, x_m = batch.prepare_data(xr, tokendict, n_tokens=n_token)
-		if x is None:
+            for xr,y in val_iter:
+                x, x_m = batch.prepare_data(xr, tokendict, n_tokens=n_token)
+                if x is None:
                     print("Validation: Minibatch with zero samples under maxlength.")
-		    continue
+                    continue
 
                 vp = predict(x,x_m)
                 ranks = np.argsort(vp)[:,::-1]
@@ -222,8 +222,8 @@ def main(train_path,val_path,save_path,wordvec=None,num_epochs=NUM_EPOCHS):
                     saveparams[kk] = vv.get_value()
                 np.savez('%s/best_model.npz' % (save_path),**saveparams)
 
-	    print("Epoch {} Training Cost {} Validation Precision {} Regularization Cost {} Max Precision {}".format(epoch, train_cost/n_samples, validation_cost, regularization_cost, maxp))
-	    print("Seen {} samples.".format(n_samples))
+            print("Epoch {} Training Cost {} Validation Precision {} Regularization Cost {} Max Precision {}".format(epoch, train_cost/n_samples, validation_cost, regularization_cost, maxp))
+            print("Seen {} samples.".format(n_samples))
             valcosts.append(validation_cost)
 
             print("Saving...")
@@ -234,7 +234,7 @@ def main(train_path,val_path,save_path,wordvec=None,num_epochs=NUM_EPOCHS):
             print("Done.")
 
     except KeyboardInterrupt:
-	pass
+        pass
     print("Total training time = {}".format(time.time()-start))
 
 if __name__ == '__main__':
