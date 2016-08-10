@@ -17,7 +17,7 @@ SCALE = 0.2
 # Dimensionality of C2W hidden states
 C2W_HDIM = 350
 # Dimensionality of word vectors
-WDIM = 250
+WDIM = C2W_HDIM
 # Number of classes
 MAX_CLASSES = 6000
 # Learning rate

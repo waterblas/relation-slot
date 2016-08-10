@@ -3,4 +3,4 @@ echo $1
 echo -e "\n" >> $1
 ./baseline_tester.sh >> $1
 echo -e "\n" >> $1
-cat settings_word.py >> $1
+cat src/settings_word.py >> $1
