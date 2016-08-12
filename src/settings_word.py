@@ -7,7 +7,7 @@ NUM_EPOCHS = 50
 # Batch size
 N_BATCH = 50
 # Max sequence length
-MAX_LENGTH = 40
+MAX_LENGTH = 150
 # Number of unique characters
 N_WORD = 20000
 # Dimensionality of word lookup
@@ -15,7 +15,7 @@ WORD_DIM = 300
 # Initialization scale
 SCALE = 0.2
 # Dimensionality of C2W hidden states
-C2W_HDIM = 350
+C2W_HDIM = 300
 # Dimensionality of word vectors
 WDIM = C2W_HDIM
 # Number of classes
