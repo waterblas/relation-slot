@@ -115,8 +115,6 @@ def tweet2vec(tweet,mask,params,n_chars=N_WORD):
     l_f_source_mid = lasagne.layers.SliceLayer(l_fgru_source, -MAX_LENGTH*2/3, 1)
     l_b_source_mid = lasagne.layers.SliceLayer(l_bgru_source, MAX_LENGTH/3, 1)
 
-    l_f_source = lasagne.layers.ElemwiseSumLayer([l_f_source_pre, l_f_source_mid], coeffs=1)
-    l_b_source = lasagne.layers.ElemwiseSumLayer([l_b_source_pre, l_b_source_mid], coeffs=1)
     # Dense layer
    # if BIAS:
    #     l_fdense_source = lasagne.layers.DenseLayer(l_f_source, WDIM, W=params['W_c2w_df'], b=params['b_c2w_df'], nonlinearity=None)
@@ -125,7 +123,7 @@ def tweet2vec(tweet,mask,params,n_chars=N_WORD):
    #     l_fdense_source = lasagne.layers.DenseLayer(l_f_source, WDIM, W=params['W_c2w_df'], b=None, nonlinearity=lasagne.nonlinearities.rectify)
    #     l_bdense_source = lasagne.layers.DenseLayer(l_b_source, WDIM, W=params['W_c2w_db'], b=None, nonlinearity=lasagne.nonlinearities.rectify)
    # l_c2w_source = lasagne.layers.ElemwiseSumLayer([l_fdense_source, l_bdense_source], coeffs=1)
-    l_c2w_source = lasagne.layers.ConcatLayer([l_f_source, l_b_source], axis=1)
+    l_c2w_source = lasagne.layers.ConcatLayer([l_f_source_pre, l_f_source_mid, l_b_source_pre, l_b_source_mid], axis=1)
 
     return l_c2w_source
     
