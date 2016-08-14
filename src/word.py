@@ -84,7 +84,7 @@ def main(train_path,val_path,save_path,wordvec=None,num_epochs=NUM_EPOCHS):
         n_classes = min(len(labeldict.keys()) + 1, MAX_CLASSES)
 
         # classification params
-        params['W_cl'] = theano.shared(np.random.normal(loc=0., scale=SCALE, size=(4*WDIM,n_classes)).astype('float32'), name='W_cl')
+        params['W_cl'] = theano.shared(np.random.normal(loc=0., scale=SCALE, size=(2*WDIM,n_classes)).astype('float32'), name='W_cl')
         params['b_cl'] = theano.shared(np.zeros((n_classes)).astype('float32'), name='b_cl')
 
     else:
@@ -189,6 +189,7 @@ def main(train_path,val_path,save_path,wordvec=None,num_epochs=NUM_EPOCHS):
 
                 if np.mod(uidx, DISPF) == 0:
                     print("Epoch {} Update {} Cost {} Time {}".format(epoch,uidx,curr_cost,ud))
+                    sys.stdout.flush()
 
                 if np.mod(uidx,SAVEF) == 0:
                     print("Saving...")
