@@ -122,6 +122,7 @@ def main(train_path,val_path,save_path,wordvec=None,num_epochs=NUM_EPOCHS):
 
     # params and updates
     print("Computing updates...")
+    global SCHEDULE
     lr = LEARNING_RATE
     if ADADELTA:
         SCHEDULE = False
