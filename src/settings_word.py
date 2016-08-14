@@ -23,7 +23,7 @@ MAX_CLASSES = 6000
 # Learning rate
 LEARNING_RATE = 1.0
 # Display frequency
-DISPF = 5
+DISPF = 20
 # Save frequency
 SAVEF = 1000
 # Regularization

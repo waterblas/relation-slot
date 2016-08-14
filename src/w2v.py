@@ -110,9 +110,13 @@ def tweet2vec(tweet,mask,params,n_chars=N_WORD):
     l_bgru_source = lasagne.layers.GRULayer(l_clookup_source, C2W_HDIM, resetgate=c2w_b_reset, updategate=c2w_b_update, hidden_update=c2w_b_hidden, hid_init=params['hid_ini_b'], backwards=True, learn_init=True, gradient_steps=-1, grad_clipping=GRAD_CLIP, unroll_scan=False, precompute_input=True, mask_input=l_mask)
 
     # Slice final states
-    l_f_source = lasagne.layers.SliceLayer(l_fgru_source, -1, 1)
-    l_b_source = lasagne.layers.SliceLayer(l_bgru_source, 0, 1)
+    l_f_source_pre = lasagne.layers.SliceLayer(l_fgru_source, -1, 1)
+    l_b_source_pre = lasagne.layers.SliceLayer(l_bgru_source, 0, 1)
+    l_f_source_mid = lasagne.layers.SliceLayer(l_fgru_source, -MAX_LENGTH*2/3, 1)
+    l_b_source_mid = lasagne.layers.SliceLayer(l_bgru_source, MAX_LENGTH/3, 1)
 
+    l_f_source = lasagne.layers.ElemwiseSumLayer([l_f_source_pre, l_f_source_mid], coeffs=1)
+    l_b_source = lasagne.layers.ElemwiseSumLayer([l_b_source_pre, l_b_source_mid], coeffs=1)
     # Dense layer
    # if BIAS:
    #     l_fdense_source = lasagne.layers.DenseLayer(l_f_source, WDIM, W=params['W_c2w_df'], b=params['b_c2w_df'], nonlinearity=None)
