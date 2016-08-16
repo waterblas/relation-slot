@@ -7,7 +7,7 @@ NUM_EPOCHS = 50
 # Batch size
 N_BATCH = 50
 # Max sequence length
-MAX_LENGTH = 40
+MAX_LENGTH = 120
 # Number of unique characters
 N_WORD = 20000
 # Dimensionality of word lookup
@@ -33,7 +33,7 @@ RELOAD_MODEL = False
 # NAG
 MOMENTUM = 0.9
 # clipping
-GRAD_CLIP = 5.
+GRAD_CLIP = 50.
 # use bias
 BIAS = False
 # use learning rate schedule

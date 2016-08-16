@@ -43,8 +43,8 @@ def init_params(n_chars=N_WORD):
     params['hid_ini_b'] = theano.shared(np.zeros((1,C2W_HDIM)).astype('float32'), name='hid_ini_b')
 
     # NIN-layer
-    params['W_c2w_f_a'] = theano.shared(np.random.uniform(0, 1, size=(MAX_LENGTH, 1)).astype('float32'), name='W_c2w_f_a')
-    params['W_c2w_b_a'] = theano.shared(np.random.uniform(0, 1, size=(MAX_LENGTH, 1)).astype('float32'), name='W_c2w_b_a')
+    params['W_c2w_f_a'] = theano.shared(np.random.uniform(0, SCALE, size=(MAX_LENGTH, 1)).astype('float32'), name='W_c2w_f_a')
+    params['W_c2w_b_a'] = theano.shared(np.random.uniform(0, SCALE, size=(MAX_LENGTH, 1)).astype('float32'), name='W_c2w_b_a')
     # dense
    # params['W_c2w_df'] = theano.shared(np.random.normal(loc=0., scale=SCALE, size=(C2W_HDIM,WDIM)).astype('float32'), name='W_c2w_df')
    # params['W_c2w_db'] = theano.shared(np.random.normal(loc=0., scale=SCALE, size=(C2W_HDIM,WDIM)).astype('float32'), name='W_c2w_db')
