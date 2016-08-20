@@ -44,6 +44,7 @@ def classify(tweet, t_mask, params, n_classes, n_tokens):
 
 def main(train_path,val_path,save_path,wordvec=None,num_epochs=NUM_EPOCHS):
     global T1
+    global SCHEDULE
 
     # save settings
     shutil.copyfile('src/settings_word.py','%s/settings_word.txt'%save_path)
@@ -84,7 +85,7 @@ def main(train_path,val_path,save_path,wordvec=None,num_epochs=NUM_EPOCHS):
         n_classes = min(len(labeldict.keys()) + 1, MAX_CLASSES)
 
         # classification params
-        params['W_cl'] = theano.shared(np.random.normal(loc=0., scale=SCALE, size=(2*WDIM,n_classes)).astype('float32'), name='W_cl')
+        params['W_cl'] = theano.shared(np.random.normal(loc=0., scale=SCALE, size=(WDIM,n_classes)).astype('float32'), name='W_cl')
         params['b_cl'] = theano.shared(np.zeros((n_classes)).astype('float32'), name='b_cl')
 
     else:

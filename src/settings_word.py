@@ -7,7 +7,7 @@ NUM_EPOCHS = 50
 # Batch size
 N_BATCH = 50
 # Max sequence length
-MAX_LENGTH = 125
+MAX_LENGTH = 73
 # Number of unique characters
 N_WORD = 20000
 # Dimensionality of word lookup
@@ -17,7 +17,7 @@ SCALE = 0.1
 # Dimensionality of C2W hidden states
 C2W_HDIM = 300
 # Dimensionality of word vectors
-WDIM = C2W_HDIM
+WDIM = 2*C2W_HDIM
 # Number of classes
 MAX_CLASSES = 100
 # Learning rate
@@ -25,7 +25,7 @@ LEARNING_RATE = 1.0
 # Display frequency
 DISPF = 20
 # Save frequency
-SAVEF = 1000
+SAVEF = 2500
 # Regularization
 REGULARIZATION = 0.0001
 # Reload
